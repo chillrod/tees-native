@@ -2,27 +2,25 @@ import "~/config/global.css";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Theme, ThemeProvider } from "@react-navigation/native";
-import { SplashScreen, Stack } from "expo-router";
+import { Slot, SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
 import { NAV_THEME } from "~/lib/constants";
 import { useColorScheme } from "~/lib/useColorScheme";
 import { PortalHost } from "@rn-primitives/portal";
-// import { ThemeToggle } from "~/components/ThemeToggle";
 import { setAndroidNavigationBar } from "~/lib/android-navigation-bar";
 import { useEffect, useState } from "react";
 
-const DARK_THEME: Theme = {
+export const DARK_THEME: Theme = {
   dark: true,
   colors: NAV_THEME.dark,
 };
 
-export { ErrorBoundary } from "expo-router";
-
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+export default function BaseLayout() {
   const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
+
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = useState(false);
 
   useEffect(() => {
@@ -60,15 +58,7 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={DARK_THEME}>
       <StatusBar style={"light"} />
-      <Stack>
-        <Stack.Screen
-          name="index"
-          options={{
-            title: "Hi",
-            // headerLargeTitle: true,
-          }}
-        />
-      </Stack>
+      <Slot />
       <PortalHost />
     </ThemeProvider>
   );

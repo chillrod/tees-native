@@ -21,6 +21,7 @@ config.resolver.assetExts = [
   "gltf",
   "png",
   "jpg",
+  "svg",
 ];
 
 module.exports = withNativeWind(config, { input: "./src/config/global.css" });
